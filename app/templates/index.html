@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Auditoria de PGDAS-D – PIS/COFINS Monofásico</h1>
+<p>
+    Este sistema faz o cruzamento entre XML de NF-e e declarações PGDAS-D para
+    identificar receitas de produtos sujeitos ao regime monofásico de PIS/COFINS
+    que podem ter sido tributadas indevidamente. Gere relatórios e uma peça
+    modelo para retificação.
+</p>
+
+<form action="/processar" method="post" enctype="multipart/form-data" style="background: #fff; padding: 16px; border-radius: 8px; box-shadow: 0 0 6px rgba(0,0,0,0.1);">
+    <div style="margin-bottom: 12px;">
+        <label for="cnpj">CNPJ*</label><br>
+        <input type="text" id="cnpj" name="cnpj" placeholder="Digite o CNPJ" required style="width: 100%; padding: 8px;">
+    </div>
+    <div style="margin-bottom: 12px;">
+        <label for="razao_social">Razão Social (opcional)</label><br>
+        <input type="text" id="razao_social" name="razao_social" placeholder="Razão Social" style="width: 100%; padding: 8px;">
+    </div>
+    <div style="margin-bottom: 12px; display: flex; gap: 12px;">
+        <div style="flex: 1;">
+            <label for="competencia_inicial">Competência inicial (AAAA-MM)*</label><br>
+            <input type="month" id="competencia_inicial" name="competencia_inicial" required style="width: 100%; padding: 8px;">
+        </div>
+        <div style="flex: 1;">
+            <label for="competencia_final">Competência final (AAAA-MM)*</label><br>
+            <input type="month" id="competencia_final" name="competencia_final" required style="width: 100%; padding: 8px;">
+        </div>
+    </div>
+    <div style="margin-bottom: 12px;">
+        <label for="xml_files">Arquivos XML de NF-e (pode selecionar vários)</label><br>
+        <input type="file" id="xml_files" name="xml_files" accept=".xml" multiple>
+    </div>
+    <div style="margin-bottom: 12px;">
+        <label for="pgdas_files">Arquivos PGDAS-D (CSV) - pode selecionar vários</label><br>
+        <input type="file" id="pgdas_files" name="pgdas_files" accept=".csv" multiple>
+    </div>
+    <button type="submit" class="button">Rodar Auditoria</button>
+</form>
+{% endblock %}
