@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Resultado da Auditoria</h1>
+
+<div style="margin-bottom: 16px;">
+    <strong>Empresa:</strong> {{ empresa.cnpj }} {% if empresa.razao_social %}- {{ empresa.razao_social }}{% endif %}
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Competência</th>
+            <th>Base Monofásica XML</th>
+            <th>Base Monofásica PGDAS</th>
+            <th>Diferença de Base</th>
+            <th>PIS Indevido</th>
+            <th>COFINS Indevido</th>
+            <th>Total Indevido</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for comp in competencias %}
+        <tr>
+            <td>{{ comp.ano_mes }}</td>
+            <td>{{ comp.base_xml }}</td>
+            <td>{{ comp.base_pgdas }}</td>
+            <td>{{ comp.diferenca_base }}</td>
+            <td>{{ comp.pis_indev }}</td>
+            <td>{{ comp.cofins_indev }}</td>
+            <td>{{ comp.total_indev }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Arquivos gerados</h3>
+<ul>
+    <li>Relatório resumo: <a href="/{{ paths_relatorios.resumo }}" target="_blank">{{ paths_relatorios.resumo }}</a></li>
+    <li>Detalhe NCM: <a href="/{{ paths_relatorios.detalhe_ncm }}" target="_blank">{{ paths_relatorios.detalhe_ncm }}</a></li>
+    <li>Inconsistências: <a href="/{{ paths_relatorios.inconsistencias }}" target="_blank">{{ paths_relatorios.inconsistencias }}</a></li>
+    <li>Peça espelho: <a href="/{{ path_peca }}" target="_blank">{{ path_peca }}</a></li>
+</ul>
+
+<a class="button" href="/">Voltar ao início</a>
+{% endblock %}
